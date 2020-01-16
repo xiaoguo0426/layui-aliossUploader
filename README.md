@@ -8,6 +8,3 @@
 
 ##### 调用
  ![json](./images/request.png)
-
-
-![123213](./images/carbon.png)
