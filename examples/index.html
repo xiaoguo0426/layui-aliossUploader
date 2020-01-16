@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>自定义模块 - layui</title>
+
+		<link rel="stylesheet" href="../src/css/layui.css">
+
+		<style>
+
+		</style>
+	</head>
+	<body>
+		<a class="layui-btn layui-btn-sm" id="uploadOne">
+			上传单个文件
+		</a>
+		<a class="layui-btn layui-btn-sm" id="uploadMore">
+			上传多个文件
+		</a>
+
+		<script src="../src/layui.js"></script>
+		<script>
+			layui.config({
+				base: './js/'
+			}).extend({
+				aliossUploader: 'aliossUploader'
+			}).use(['jquery','aliossUploader'], function() {
+				var $ = layui.jquery;
+				var aliossUploader = layui.aliossUploader;
+				
+				$.getJSON('./json/oss.json',{},function(res){
+					console.log(res);
+
+					if (res.code > 0) {
+						console.log(res.msg);
+						return false;
+					}
+
+					let oss = res.data;
+
+					aliossUploader.render({
+                        elm: '#uploadOne',
+                        host: oss.host,
+                        layerTitle: '上传数据文件',
+                        accessId: oss.accessKeyId,
+                        policy: oss.policy,
+                        signature: oss.signature,
+                        prefixPath: oss.dir,
+                        maxSize: oss.maxSize,
+                        fileType: 'images',
+                        multiple: false,
+                        allUploaded: function (res) {
+                        	console.log('单张图片上传成功');
+                        	console.log(res);//如果是单个文件上传，则返回是对象
+                            layer.msg(JSON.stringify(res));
+                        }
+                    });
+				
+				});
+					aliossUploader.render({
+                        elm: '#uploadMore',
+                        host: oss.host,
+                        layerTitle: '上传数据文件',
+                        accessId: oss.accessKeyId,
+                        policy: oss.policy,
+                        signature: oss.signature,
+                        prefixPath: oss.dir,
+                        maxSize: oss.maxSize,
+                        layerArea:['800px','500px'],
+                        fileType: 'images',
+                        multiple: true,
+                        allUploaded: function (res) {
+                        	console.log('多张图片上传成功');
+                        	console.log(res);//如果是单个文件上传，则返回是对象
+                            layer.msg(JSON.stringify(res));
+                        }
+                    });
+					
+				});
+			});
+		</script>
+	</body>
+</html>

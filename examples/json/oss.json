@@ -1,0 +1,14 @@
+{
+	"code": 0,
+	"msg": "签名成功",
+	"data": {
+		"accessKeyId": "",
+		"callback": "",
+		"dir": "user/upload/",
+		"expire": 1579138006,
+		"host": "",
+		"maxSize": 2048,
+		"policy": "",
+		"signature": ""
+	}
+}
